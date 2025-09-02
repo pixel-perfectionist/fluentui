@@ -6,13 +6,22 @@ export {
   useCarouselButtonStyles_unstable,
   useCarouselButton_unstable,
 } from './CarouselButton';
-export type { CarouselNavProps, CarouselNavSlots, CarouselNavState, NavButtonRenderFunction } from './CarouselNav';
+export type {
+  CarouselNavProps,
+  CarouselNavSlots,
+  CarouselNavState,
+  NavButtonRenderFunction,
+  PaginationMode,
+  PaginationItem,
+  GetPaginationRangeParams,
+} from './CarouselNav';
 export {
   CarouselNav,
   carouselNavClassNames,
   renderCarouselNav_unstable,
   useCarouselNavStyles_unstable,
   useCarouselNav_unstable,
+  getPaginationRange,
 } from './CarouselNav';
 export type { CarouselNavButtonProps, CarouselNavButtonSlots, CarouselNavButtonState } from './CarouselNavButton';
 export {
@@ -22,6 +31,18 @@ export {
   useCarouselNavButtonStyles_unstable,
   useCarouselNavButton_unstable,
 } from './CarouselNavButton';
+export type {
+  CarouselNavPaginationButtonProps,
+  CarouselNavPaginationButtonSlots,
+  CarouselNavPaginationButtonState,
+} from './CarouselNavPaginationButton';
+export {
+  CarouselNavPaginationButton,
+  carouselNavPaginationButtonClassNames,
+  renderCarouselNavPaginationButton_unstable,
+  useCarouselNavPaginationButtonStyles_unstable,
+  useCarouselNavPaginationButton_unstable,
+} from './CarouselNavPaginationButton';
 export type { CarouselProps, CarouselSlots, CarouselState, CarouselAnnouncerFunction } from './Carousel';
 export {
   Carousel,

@@ -16,7 +16,20 @@ import { useControllableState } from '@fluentui/react-utilities';
  * @param ref - reference to root HTMLDivElement of CarouselNav
  */
 export const useCarouselNav_unstable = (props: CarouselNavProps, ref: React.Ref<HTMLDivElement>): CarouselNavState => {
-  const { appearance } = props;
+  const {
+    appearance,
+    children,
+    mode,
+    currentIndex,
+    onNavigate,
+    sidePadding,
+    activePadding,
+    labels,
+    renderLabel,
+    getItemAriaLabel,
+    size,
+    disabled,
+  } = props;
 
   const focusableGroupAttr = useArrowNavigationGroup({
     circular: false,
@@ -43,7 +56,17 @@ export const useCarouselNav_unstable = (props: CarouselNavProps, ref: React.Ref<
   return {
     totalSlides,
     appearance,
-    renderNavButton: props.children,
+    renderNavButton: children,
+    mode: mode || 'dots',
+    currentIndex,
+    onNavigate,
+    sidePadding,
+    activePadding,
+    labels,
+    renderLabel,
+    getItemAriaLabel,
+    size,
+    disabled,
     components: {
       root: 'div',
     },
