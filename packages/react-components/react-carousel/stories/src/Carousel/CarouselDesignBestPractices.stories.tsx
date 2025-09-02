@@ -79,10 +79,8 @@ const useClasses = makeStyles({
   carouselHeaderTitle: { flex: '1', margin: '0', fontSize: '22px', fontWeight: 800 },
   carouselNavigation: { width: 'fit-content', alignSelf: 'center', margin: '0' },
   slider: {
-    gap: '0',
-    '& > *': {
-      margin: '0 12px',
-    },
+    gap: '24px',
+    padding: '0 24px',
   },
 });
 
