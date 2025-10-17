@@ -3,12 +3,6 @@ import type { JSXElement } from '@fluentui/react-components';
 import { Button, Label, Select, Switch, makeStyles, useId } from '@fluentui/react-components';
 import type { ButtonProps, SwitchOnChangeData } from '@fluentui/react-components';
 import { tokens } from '@fluentui/react-theme';
-import {
-  sanitizeTokenName,
-  TEAMS_VISUAL_REFRESH_THEME,
-  TEAMS_VISUAL_REFRESH_TOKENS,
-  VisualRefreshContext,
-} from '@fluentui/visual-refresh-preview';
 import { shorthands } from '@griffel/react';
 
 import {
@@ -16,6 +10,7 @@ import {
   type VisualRefreshAppearanceStateTokens,
 } from '../../../../react-button/library/src/components/Button/useButtonStyles.styles';
 import { bundleIcon, ChatEmptyFilled, ChatEmptyRegular } from '@fluentui/react-icons';
+import { VisualRefreshProvider } from '../provider';
 
 type ComponentState = 'rest' | 'hover' | 'pressed' | 'focus' | 'disabled';
 type AppearanceStateKey = keyof VisualRefreshAppearanceStateTokens['foreground'];
@@ -130,21 +125,6 @@ const useButtonStateStyles = makeStyles({
     outlineOffset: '2px',
   },
 });
-
-const VisualRefreshProvider = ({ children }: { children: React.ReactNode }) => {
-  const customProperties: Record<string, string> = {};
-  for (const [key, value] of Object.entries(TEAMS_VISUAL_REFRESH_TOKENS ?? {})) {
-    customProperties[`--visual-refresh-${key}`] = value;
-  }
-  for (const [key, value] of Object.entries(TEAMS_VISUAL_REFRESH_THEME)) {
-    customProperties[`--${sanitizeTokenName(key)}`] = String(value);
-  }
-  return (
-    <VisualRefreshContext.Provider value={true}>
-      <div style={customProperties as React.CSSProperties}>{children}</div>
-    </VisualRefreshContext.Provider>
-  );
-};
 
 const ButtonStateCell = ({
   appearance,
