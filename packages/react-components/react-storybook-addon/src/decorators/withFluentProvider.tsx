@@ -17,6 +17,8 @@ import { DIR_ID, THEME_ID } from '../constants';
 import { FluentStoryContext } from '../hooks';
 import { isDecoratorDisabled } from '../utils/isDecoratorDisabled';
 
+const visualRefreshTheme = webLightTheme;
+
 const themes: Record<ThemeIds, Theme> = {
   'web-light': webLightTheme,
   'web-dark': webDarkTheme,
@@ -25,6 +27,7 @@ const themes: Record<ThemeIds, Theme> = {
   'teams-high-contrast': teamsHighContrastTheme,
   'teams-light-v21': teamsLightV21Theme,
   'teams-dark-v21': teamsDarkV21Theme,
+  'visual-refresh': visualRefreshTheme,
 } as const;
 
 const findTheme = (themeId?: ThemeIds) => {
