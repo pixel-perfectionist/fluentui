@@ -4,6 +4,7 @@ export type GroupFallbacks = {
   [key: string]: {
     [key: string]: {
       fluent?: string | null;
+      visualRefresh?: string | null;
       generic?: string | null;
       primitive?: string | null;
     };

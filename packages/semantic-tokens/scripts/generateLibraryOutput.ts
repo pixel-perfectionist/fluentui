@@ -5,6 +5,46 @@ import { groupFallbacks } from './definitions/groupFallbacks';
 import { genericFallbacks } from './definitions/genericFallbacks';
 import { controlFallbacks } from './definitions/controlFallbacks';
 
+type ThemeFallbackKey = 'fluent' | 'visualRefresh';
+
+type ThemeFallbackRecord = Partial<Record<ThemeFallbackKey, string | null>> & {
+  generic?: string | null;
+  primitive?: string | null;
+};
+
+const fallbackThemeArg = process.argv.find(arg => arg.startsWith('--fallbackTheme='));
+const fallbackThemeEnv = process.env.SEMANTIC_TOKENS_FALLBACK_THEME;
+
+function isThemeFallbackKey(value: string): value is ThemeFallbackKey {
+  return value === 'fluent' || value === 'visualRefresh';
+}
+
+const fallbackTheme: ThemeFallbackKey = (() => {
+  const candidate = fallbackThemeArg?.split('=')[1] ?? fallbackThemeEnv;
+  if (candidate && isThemeFallbackKey(candidate)) {
+    return candidate;
+  }
+  return 'fluent';
+})();
+
+function resolveFallbackValue(record?: ThemeFallbackRecord): string | undefined {
+  if (!record) {
+    return undefined;
+  }
+
+  const themeSpecific = record[fallbackTheme];
+  if (themeSpecific !== undefined) {
+    return themeSpecific === null ? undefined : themeSpecific;
+  }
+
+  const fluentFallback = record.fluent;
+  if (fluentFallback !== undefined) {
+    return fluentFallback === null ? undefined : fluentFallback;
+  }
+
+  return undefined;
+}
+
 function dotToCamelCase(str: string): string {
   return str
     .split('.') // Split the string by dots
@@ -59,8 +99,13 @@ function generateLibraryOutput() {
   for (const token of genericTokens) {
     const tokenName = dotToCamelCase(token.name);
     const cssVarName = dotToCSSVarName(token.name);
-    const fluentFallback = genericFallbacks[tokenName]?.fluent;
-    const exportToken = `export const ${tokenName} = 'var(${cssVarName}, ${fluentFallback})';`;
+    const fallbackValue = resolveFallbackValue(genericFallbacks[tokenName]);
+
+    let exportToken = `export const ${tokenName} = 'var(${cssVarName})';`;
+    if (fallbackValue) {
+      exportToken = `export const ${tokenName} = 'var(${cssVarName}, ${fallbackValue})';`;
+    }
+
     genericTokenList += `${exportToken}\n`;
     genericIndexExport += `${tokenName},\n`;
   }
@@ -91,11 +136,11 @@ function generateLibraryOutput() {
 
     const tokenName = dotToCamelCase(token.name);
     const cssVarName = dotToCSSVarName(token.name);
-    const fluentFallback = groupFallbacks[tokenGroup][tokenName]?.fluent;
+    const fallbackValue = resolveFallbackValue(groupFallbacks[tokenGroup]?.[tokenName]);
 
     let exportToken = `export const ${tokenName} = 'var(${cssVarName})';`;
-    if (fluentFallback) {
-      exportToken = `export const ${tokenName} = 'var(${cssVarName}, ${fluentFallback})';`;
+    if (fallbackValue) {
+      exportToken = `export const ${tokenName} = 'var(${cssVarName}, ${fallbackValue})';`;
     }
 
     groupTokenList[groupName] += `${exportToken}\n`;
@@ -138,11 +183,11 @@ function generateLibraryOutput() {
 
     const tokenName = dotToCamelCase(token.name);
     const cssVarName = dotToCSSVarName(token.name);
-    const fluentFallback = controlFallbacks[tokenGroup]?.[tokenName]?.fluent;
-    console.log('control token:', tokenName, cssVarName, fluentFallback);
+    const fallbackValue = resolveFallbackValue(controlFallbacks[tokenGroup]?.[tokenName]);
+    console.log('control token:', tokenName, cssVarName, fallbackValue);
     let exportToken = `export const ${tokenName} = 'var(${cssVarName})';`;
-    if (fluentFallback) {
-      exportToken = `export const ${tokenName} = 'var(${cssVarName}, ${fluentFallback})';`;
+    if (fallbackValue) {
+      exportToken = `export const ${tokenName} = 'var(${cssVarName}, ${fallbackValue})';`;
     }
 
     controlTokenList[groupName] += `${exportToken}\n`;

@@ -3,6 +3,7 @@ import { tokens } from '@fluentui/tokens';
 export type GenericFallbacks = {
   [key: string]: {
     fluent?: string;
+    visualRefresh?: string;
     primitive?: string;
   };
 };
