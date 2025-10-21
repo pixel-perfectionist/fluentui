@@ -4,6 +4,7 @@ import { tokens, typographyStyles } from '@fluentui/react-theme';
 import type { SlotClassNames } from '@fluentui/react-utilities';
 import { makeResetStyles, makeStyles, mergeClasses, shorthands } from '@griffel/react';
 import type { InputSlots, InputState } from './Input.types';
+import { semanticTokenVar, useIsVisualRefreshEnabled } from '@fluentui/visual-refresh-preview';
 
 export const inputClassNames: SlotClassNames<InputSlots> = {
   root: 'fui-Input',
@@ -325,11 +326,44 @@ const useContentStyles = makeStyles({
   },
 });
 
+const useVisualRefreshStyles = makeStyles({
+  root: {
+    borderRadius: semanticTokenVar('corner/ctrl/md'),
+
+    // Remove the original bottom border
+    borderBottomColor: tokens.colorNeutralStroke1,
+    ':hover': {
+      borderBottomColor: tokens.colorNeutralStroke1,
+    },
+    ':active,:focus-within': {
+      borderBottomColor: tokens.colorNeutralStroke1,
+    },
+     '::after': {
+      display: 'none',
+     },
+    //--------
+  },
+  small: {
+    minHeight: semanticTokenVar('size/ctrl/sm'),
+    height: semanticTokenVar('size/ctrl/sm'),
+  },
+  medium: {
+    minHeight: semanticTokenVar('size/ctrl/md'),
+    height: semanticTokenVar('size/ctrl/md'),
+  },
+  large: {
+    minHeight: semanticTokenVar('size/ctrl/lg'),
+    height: semanticTokenVar('size/ctrl/lg')
+  },
+});
+
 /**
  * Apply styling to the Input slots based on the state
  */
 export const useInputStyles_unstable = (state: InputState): InputState => {
   'use no memo';
+  const isVisualRefreshEnabled = useIsVisualRefreshEnabled();
+  const visualRefreshStyles = useVisualRefreshStyles();
 
   const { size, appearance } = state;
   const disabled = state.input.disabled;
@@ -339,6 +373,12 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
   const rootStyles = useRootStyles();
   const inputStyles = useInputElementStyles();
   const contentStyles = useContentStyles();
+
+  const visualRefreshStylesRecord = visualRefreshStyles as unknown as Record<string, string>;
+  const visualRefreshSlots: Array<string | undefined> = ['root', appearance, size];
+  const visualRefreshOverrides = isVisualRefreshEnabled
+  ? mergeClasses(...visualRefreshSlots.map(slot => (slot ? visualRefreshStylesRecord[slot] : undefined)))
+  : undefined;
 
   state.root.className = mergeClasses(
     inputClassNames.root,
@@ -353,6 +393,9 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
     filled && rootStyles.filled,
     !disabled && invalid && rootStyles.invalid,
     disabled && rootStyles.disabled,
+
+    isVisualRefreshEnabled && visualRefreshOverrides,
+
     state.root.className,
   );
 
@@ -363,6 +406,7 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
     state.contentBefore && inputStyles[`${size}WithContentBefore`],
     state.contentAfter && inputStyles[`${size}WithContentAfter`],
     disabled && inputStyles.disabled,
+
     state.input.className,
   );
 

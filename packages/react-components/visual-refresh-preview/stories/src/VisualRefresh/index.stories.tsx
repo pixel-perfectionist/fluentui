@@ -3,6 +3,7 @@ import { Meta } from '@storybook/react';
 
 export { VisualRefresh } from './VisualRefresh.stories';
 export { ButtonVisualRefresh as Button } from './Button.stories';
+export { InputVisualRefresh as Input } from './Input.stories';
 
 const Component = () => <div />;
 
