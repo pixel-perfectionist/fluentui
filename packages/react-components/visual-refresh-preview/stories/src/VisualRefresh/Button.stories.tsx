@@ -11,18 +11,10 @@ import {
 } from '../../../../react-button/library/src/components/Button/useButtonStyles.styles';
 import { bundleIcon, ChatEmptyFilled, ChatEmptyRegular } from '@fluentui/react-icons';
 import { VisualRefreshProvider } from '../provider';
+import {ComponentStatesTable, type ComponentState } from '../ComponentStatesTable';
 
-type ComponentState = 'rest' | 'hover' | 'pressed' | 'focus' | 'disabled';
 type AppearanceStateKey = keyof VisualRefreshAppearanceStateTokens['foreground'];
 
-const buttonStateOrder: ComponentState[] = ['rest', 'hover', 'pressed', 'focus', 'disabled'];
-const buttonStateLabels: Record<ComponentState, string> = {
-  rest: 'Rest',
-  hover: 'Hover',
-  pressed: 'Pressed',
-  focus: 'Focus',
-  disabled: 'Disabled',
-};
 const componentStateToAppearanceStateKey: Record<ComponentState, AppearanceStateKey> = {
   rest: 'rest',
   hover: 'hover',
@@ -62,11 +54,6 @@ const useStoryStyles = makeStyles({
     alignItems: 'center',
     gap: '0.5rem',
   },
-  table: {
-    borderCollapse: 'collapse',
-    minWidth: '720px',
-    pointerEvents: 'none',
-  },
   previewSection: {
     display: 'flex',
     flexDirection: 'column',
@@ -83,38 +70,7 @@ const useStoryStyles = makeStyles({
     alignItems: 'center',
     gap: '34px',
     flexWrap: 'wrap',
-  },
-  headerCell: {
-    borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,
-    color: tokens.colorNeutralForeground2,
-    fontWeight: tokens.fontWeightRegular,
-    opacity: '0.8',
-    padding: '0.75rem',
-    textAlign: 'left',
-  },
-  componentCell: {
-    borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,
-    fontWeight: tokens.fontWeightSemibold,
-    padding: '0.75rem',
-    verticalAlign: 'top',
-    width: '160px',
-  },
-  variantCell: {
-    borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,
-    padding: '0.75rem',
-    verticalAlign: 'top',
-    width: '180px',
-  },
-  stateCell: {
-    borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,
-    padding: '0.75rem',
-    textAlign: 'center',
-    width: '140px',
-  },
-  stateContent: {
-    display: 'flex',
-    justifyContent: 'start',
-  },
+  }
 });
 
 const useButtonStateStyles = makeStyles({
@@ -190,55 +146,6 @@ const ButtonStateCell = ({
   );
 };
 
-const ComponentStatesTable = ({
-  controlSize,
-  isVisualRefreshEnabled,
-}: {
-  controlSize: ButtonProps['size'];
-  isVisualRefreshEnabled: boolean;
-}) => {
-  const styles = useStoryStyles();
-
-  return (
-    <div>
-      <Label className={styles.previewLabel}>States</Label>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles.headerCell}>State</th>
-            {buttonVariants.map(variant => (
-              <th key={variant.label} className={styles.headerCell}>
-                {variant.label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {buttonStateOrder.map((state, stateIndex) => (
-            <tr key={state}>
-              <td className={styles.variantCell}>{buttonStateLabels[state]}</td>
-              {buttonVariants.map(variant => (
-                <td key={variant.label} className={styles.stateCell}>
-                  <div className={styles.stateContent}>
-                    <ButtonStateCell
-                      appearance={variant.appearance}
-                      state={state}
-                      size={controlSize}
-                      isVisualRefreshEnabled={isVisualRefreshEnabled}
-                    >
-                      {state === 'disabled' ? 'Disabled' : variant.content}
-                    </ButtonStateCell>
-                  </div>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
 export const ButtonVisualRefresh = (): JSXElement => {
   const styles = useStoryStyles();
   const switchId = useId('visual-refresh-toggle');
@@ -287,7 +194,12 @@ export const ButtonVisualRefresh = (): JSXElement => {
         </div>
       </div>
       {isVisualRefreshEnabled && (
-        <ComponentStatesTable controlSize={controlSize} isVisualRefreshEnabled={isVisualRefreshEnabled} />
+        <ComponentStatesTable
+          isVisualRefreshEnabled={isVisualRefreshEnabled}
+          componentVariants={buttonVariants}
+          controlSize={controlSize}
+          StateCell={ButtonStateCell}
+        />
       )}
     </div>
   );
