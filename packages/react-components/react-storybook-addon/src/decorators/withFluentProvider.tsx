@@ -12,6 +12,7 @@ import {
   webDarkTheme,
   webLightTheme,
 } from '@fluentui/react-theme';
+import { SEMANTIC_STYLE_HOOKS } from '@fluentui/semantic-style-hooks-preview';
 import { defaultTheme, ThemeIds } from '../theme';
 import { DIR_ID, THEME_ID } from '../constants';
 import { FluentStoryContext } from '../hooks';
@@ -49,7 +50,7 @@ export const withFluentProvider = (StoryFn: () => JSXElement, context: FluentSto
   const theme = paramTheme ?? globalTheme ?? themes[defaultTheme.id];
 
   return (
-    <FluentProvider theme={theme} dir={dir}>
+    <FluentProvider theme={theme} dir={dir} customStyleHooks_unstable={SEMANTIC_STYLE_HOOKS}>
       {isVrTest ? StoryFn() : <FluentExampleContainer theme={theme}>{StoryFn()}</FluentExampleContainer>}
     </FluentProvider>
   );

@@ -47,7 +47,7 @@ export const groupFallbacks: GroupFallbacks = {
     },
     groupButtonPrimaryBackground: {
       fluent: tokens.colorBrandBackground,
-      visualRefresh: tokens.colorBrandBackground,
+      visualRefresh: 'red',
     },
     groupButtonPrimaryBackgroundHover: {
       fluent: tokens.colorBrandBackgroundHover,
