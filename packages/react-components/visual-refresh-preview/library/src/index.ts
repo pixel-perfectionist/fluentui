@@ -378,21 +378,29 @@ export const TEAMS_VISUAL_REFRESH_THEME = {
   'ctrl/input/background/rest': tokens.colorNeutralBackground1,
   'ctrl/input/background/hover': tokens.colorNeutralBackground1,
   'ctrl/input/background/pressed': '#D6FFFF', // tokens.colorBrandBackground2
+  'ctrl/input/background/error': tokens.colorNeutralBackground1,
+  'ctrl/input/background/disabled': tokens.colorNeutralBackgroundDisabled,
 
   // Foreground
   'foreground/ctrl/neutral/secondary/rest': tokens.colorNeutralForeground3,
   'foreground/ctrl/neutral/secondary/hover': tokens.colorNeutralForeground3,
   'foreground/ctrl/neutral/secondary/pressed': tokens.colorNeutralForeground3,
+  'foreground/ctrl/neutral/secondary/error': tokens.colorNeutralForeground3,
+  'foreground/ctrl/neutral/secondary/disabled': tokens.colorNeutralForegroundDisabled,
 
   // Border
   'ctrl/input/stroke/rest': tokens.colorNeutralStroke1,
   'ctrl/input/stroke/hover': tokens.colorNeutralStroke1Hover,
   'ctrl/input/stroke/pressed': '#03787C', // tokens.colorBrandStroke1
+  'ctrl/input/stroke/error': tokens.colorStatusDangerBorder2,
+  'ctrl/input/stroke/disabled': tokens.colorNeutralStrokeDisabled,
 
   // Input icon
   'foreground/ctrl/icon/onNeutral/rest': tokens.colorNeutralForeground3,
   'foreground/ctrl/icon/onNeutral/hover': tokens.colorNeutralForeground3Hover,
   'foreground/ctrl/icon/onNeutral/pressed': tokens.colorNeutralForeground3Pressed,
+  'foreground/ctrl/icon/onNeutral/error': tokens.colorNeutralForeground3,
+  'foreground/ctrl/icon/onNeutral/disabled': tokens.colorNeutralForegroundDisabled,
 };
 
 export const TEAMS_VISUAL_REFRESH_TOKENS = Object.fromEntries(

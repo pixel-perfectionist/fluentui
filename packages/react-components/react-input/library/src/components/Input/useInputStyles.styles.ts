@@ -326,27 +326,25 @@ const useContentStyles = makeStyles({
   },
 });
 
-const useVisualRefreshStyles = makeStyles({
+const useVisualRefreshRootStyles = makeStyles({
   root: {
     backgroundColor: semanticTokenVar('ctrl/input/background/rest'),
     // TODO: token for Stroke Width
     border: `1px solid ${semanticTokenVar('ctrl/input/stroke/rest')}`,
     borderRadius: semanticTokenVar('corner/ctrl/md'),
     color: semanticTokenVar('foreground/ctrl/neutral/secondary/rest'),
-
     ':hover': {
       backgroundColor: semanticTokenVar('ctrl/input/background/hover'),
       border: `1px solid ${semanticTokenVar('ctrl/input/stroke/hover')}`,
       color: semanticTokenVar('foreground/ctrl/neutral/secondary/hover'),
     },
-
     ':active,:focus-within': {
       backgroundColor: semanticTokenVar('ctrl/input/background/pressed'),
       border: `2px solid ${semanticTokenVar('ctrl/input/stroke/pressed')}`,
       color: semanticTokenVar('foreground/ctrl/neutral/secondary/pressed'),
     },
     // Override the original bottom focus border
-     '::after': {
+    '::after': {
       display: 'none',
      },
   },
@@ -362,7 +360,29 @@ const useVisualRefreshStyles = makeStyles({
     minHeight: semanticTokenVar('size/ctrl/lg'),
     height: semanticTokenVar('size/ctrl/lg')
   },
+   invalid: {
+    ':not(:focus-within),:hover:not(:focus-within)': {
+    backgroundColor: semanticTokenVar('ctrl/input/background/error'),
+     border: `1px solid ${semanticTokenVar('ctrl/input/stroke/error')}`,
+     color: semanticTokenVar('foreground/ctrl/neutral/secondary/error')
+    },
+  },
+  disabled: {
+    backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
+    border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`,
+  }
 });
+
+const useVisualRefreshInputStyles = makeStyles({
+  disabled: {
+    backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
+    color: semanticTokenVar('foreground/ctrl/neutral/secondary/disabled'),
+    cursor: 'not-allowed',
+    '::placeholder': {
+      color: tokens.colorNeutralForegroundDisabled,
+    },
+  }
+})
 
 /**
  * Apply styling to the Input slots based on the state
@@ -370,7 +390,8 @@ const useVisualRefreshStyles = makeStyles({
 export const useInputStyles_unstable = (state: InputState): InputState => {
   'use no memo';
   const isVisualRefreshEnabled = useIsVisualRefreshEnabled();
-  const visualRefreshStyles = useVisualRefreshStyles();
+  const visualRefreshRootStyles = useVisualRefreshRootStyles();
+  const visualRefreshInputStyles = useVisualRefreshInputStyles();
 
   const { size, appearance } = state;
   const disabled = state.input.disabled;
@@ -381,10 +402,10 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
   const inputStyles = useInputElementStyles();
   const contentStyles = useContentStyles();
 
-  const visualRefreshStylesRecord = visualRefreshStyles as unknown as Record<string, string>;
+  const visualRefreshRootStylesRecord = visualRefreshRootStyles as unknown as Record<string, string>;
   const visualRefreshSlots: Array<string | undefined> = ['root', appearance, size];
   const visualRefreshOverrides = isVisualRefreshEnabled
-  ? mergeClasses(...visualRefreshSlots.map(slot => (slot ? visualRefreshStylesRecord[slot] : undefined)))
+  ? mergeClasses(...visualRefreshSlots.map(slot => (slot ? visualRefreshRootStylesRecord[slot] : undefined)))
   : undefined;
 
   state.root.className = mergeClasses(
@@ -402,6 +423,8 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
     disabled && rootStyles.disabled,
 
     isVisualRefreshEnabled && visualRefreshOverrides,
+    isVisualRefreshEnabled && !disabled && invalid && visualRefreshRootStyles.invalid,
+    isVisualRefreshEnabled && disabled && visualRefreshRootStyles.disabled,
 
     state.root.className,
   );
@@ -413,6 +436,8 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
     state.contentBefore && inputStyles[`${size}WithContentBefore`],
     state.contentAfter && inputStyles[`${size}WithContentAfter`],
     disabled && inputStyles.disabled,
+
+    isVisualRefreshEnabled && disabled && visualRefreshInputStyles.disabled,
 
     state.input.className,
   );
