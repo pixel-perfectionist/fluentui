@@ -372,6 +372,27 @@ export const TEAMS_VISUAL_REFRESH_THEME = {
   'iconColor/ctrl/transparent/hover': '#00686D', // tokens.colorPaletteLightTealForeground2
   'iconColor/ctrl/transparent/pressed': '#00595D', // tokens.colorPaletteLightTealForeground2
   'iconColor/ctrl/transparent/disabled': tokens.colorNeutralForegroundDisabled,
+
+  // Input
+  // Background
+  'ctrl/input/background/rest': tokens.colorNeutralBackground1,
+  'ctrl/input/background/hover': tokens.colorNeutralBackground1,
+  'ctrl/input/background/pressed': '#D6FFFF', // tokens.colorBrandBackground2
+
+  // Foreground
+  'foreground/ctrl/neutral/secondary/rest': tokens.colorNeutralForeground3,
+  'foreground/ctrl/neutral/secondary/hover': tokens.colorNeutralForeground3,
+  'foreground/ctrl/neutral/secondary/pressed': tokens.colorNeutralForeground3,
+
+  // Border
+  'ctrl/input/stroke/rest': tokens.colorNeutralStroke1,
+  'ctrl/input/stroke/hover': tokens.colorNeutralStroke1Hover,
+  'ctrl/input/stroke/pressed': '#03787C', // tokens.colorBrandStroke1
+
+  // Input icon
+  'foreground/ctrl/icon/onNeutral/rest': tokens.colorNeutralForeground3,
+  'foreground/ctrl/icon/onNeutral/hover': tokens.colorNeutralForeground3Hover,
+  'foreground/ctrl/icon/onNeutral/pressed': tokens.colorNeutralForeground3Pressed,
 };
 
 export const TEAMS_VISUAL_REFRESH_TOKENS = Object.fromEntries(

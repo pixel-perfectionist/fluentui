@@ -328,20 +328,27 @@ const useContentStyles = makeStyles({
 
 const useVisualRefreshStyles = makeStyles({
   root: {
+    backgroundColor: semanticTokenVar('ctrl/input/background/rest'),
+    // TODO: token for Stroke Width
+    border: `1px solid ${semanticTokenVar('ctrl/input/stroke/rest')}`,
     borderRadius: semanticTokenVar('corner/ctrl/md'),
+    color: semanticTokenVar('foreground/ctrl/neutral/secondary/rest'),
 
-    // Remove the original bottom border
-    borderBottomColor: tokens.colorNeutralStroke1,
     ':hover': {
-      borderBottomColor: tokens.colorNeutralStroke1,
+      backgroundColor: semanticTokenVar('ctrl/input/background/hover'),
+      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/hover')}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/hover'),
     },
+
     ':active,:focus-within': {
-      borderBottomColor: tokens.colorNeutralStroke1,
+      backgroundColor: semanticTokenVar('ctrl/input/background/pressed'),
+      border: `2px solid ${semanticTokenVar('ctrl/input/stroke/pressed')}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/pressed'),
     },
+    // Override the original bottom focus border
      '::after': {
       display: 'none',
      },
-    //--------
   },
   small: {
     minHeight: semanticTokenVar('size/ctrl/sm'),
