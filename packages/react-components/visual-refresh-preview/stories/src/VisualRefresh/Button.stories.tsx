@@ -15,7 +15,16 @@ import {ComponentStatesTable, type ComponentState } from '../ComponentStatesTabl
 
 type AppearanceStateKey = keyof VisualRefreshAppearanceStateTokens['foreground'];
 
-const componentStateToAppearanceStateKey: Record<ComponentState, AppearanceStateKey> = {
+const componentStateOrder: ComponentState[] = ['rest', 'hover', 'pressed', 'focus', 'disabled'];
+const componentStateLabels: Partial<Record<ComponentState, string>> = {
+  rest: 'Rest',
+  hover: 'Hover',
+  pressed: 'Pressed',
+  focus: 'Focus',
+  disabled: 'Disabled',
+};
+
+const componentStateToAppearanceStateKey: Partial<Record<ComponentState, AppearanceStateKey>> = {
   rest: 'rest',
   hover: 'hover',
   pressed: 'pressed',
@@ -196,6 +205,8 @@ export const ButtonVisualRefresh = (): JSXElement => {
       {isVisualRefreshEnabled && (
         <ComponentStatesTable
           isVisualRefreshEnabled={isVisualRefreshEnabled}
+          componentStateOrder={componentStateOrder}
+          componentStateLabels={componentStateLabels}
           componentVariants={buttonVariants}
           controlSize={controlSize}
           StateCell={ButtonStateCell}

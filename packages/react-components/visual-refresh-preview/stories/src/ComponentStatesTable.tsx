@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { Label, makeStyles, tokens } from '@fluentui/react-components';
 
-export type ComponentState = 'rest' | 'hover' | 'pressed' | 'focus' | 'disabled';
-
-const componentStateOrder: ComponentState[] = ['rest', 'hover', 'pressed', 'focus', 'disabled'];
-const componentStateLabels: Record<ComponentState, string> = {
-  rest: 'Rest',
-  hover: 'Hover',
-  pressed: 'Pressed',
-  focus: 'Focus',
-  disabled: 'Disabled',
-};
+export type ComponentState = 'rest' | 'hover' | 'pressed' | 'error' | 'focus' | 'disabled';
 
 const useTableStyles = makeStyles({
   previewLabel: {
@@ -50,11 +41,15 @@ const useTableStyles = makeStyles({
 
 export const ComponentStatesTable = ({
   isVisualRefreshEnabled,
+  componentStateOrder,
+  componentStateLabels,
   componentVariants,
   controlSize,
   StateCell,
 }: {
   isVisualRefreshEnabled: boolean;
+  componentStateOrder: ComponentState[];
+  componentStateLabels: Partial<Record<ComponentState, string>>;
   componentVariants: Array<{ label: string; appearance?: string; content: string }>;
   controlSize?: 'small' | 'medium' | 'large';
   StateCell: React.ComponentType<any>;
