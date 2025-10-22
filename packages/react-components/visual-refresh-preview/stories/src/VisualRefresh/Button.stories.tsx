@@ -1,275 +1,311 @@
 import * as React from 'react';
-import { FluentProvider, Theme, tokens, webLightTheme, type JSXElement } from '@fluentui/react-components';
+import {
+  Button,
+  FluentProvider,
+  makeStyles,
+  Theme,
+  tokens,
+  webLightTheme,
+  type JSXElement,
+} from '@fluentui/react-components';
+import { SEMANTIC_STYLE_HOOKS } from '@fluentui/semantic-style-hooks-preview';
+import { bundleIcon, CalendarMonthFilled, CalendarMonthRegular } from '@fluentui/react-icons';
 
-type VisualRefreshTheme = Theme & {
-  groupButtonStrokewidth: string;
-  groupButtonNeutralBackground: string;
-  groupButtonNeutralBackgroundHover: string;
-  groupButtonNeutralBackgroundPressed: string;
-  groupButtonNeutralBackgroundSelected: string;
-  groupButtonNeutralBackgroundHoverSelected: string;
-  groupButtonNeutralBackgroundPressedSelected: string;
-  groupButtonNeutralBackgroundDisabled: string;
-  groupButtonPrimaryBackground: string;
-  groupButtonPrimaryBackgroundHover: string;
-  groupButtonPrimaryBackgroundPressed: string;
-  groupButtonPrimaryBackgroundSelected: string;
-  groupButtonPrimaryBackgroundHoverSelected: string;
-  groupButtonPrimaryBackgroundPressedSelected: string;
-  groupButtonPrimaryBackgroundDisabled: string;
-  groupButtonOutlineBackground: string;
-  groupButtonOutlineBackgroundHover: string;
-  groupButtonOutlineBackgroundPressed: string;
-  groupButtonOutlineBackgroundSelected: string;
-  groupButtonOutlineBackgroundHoverSelected: string;
-  groupButtonOutlineBackgroundPressedSelected: string;
-  groupButtonOutlineBackgroundDisabled: string;
-  groupButtonSubtleBackground: string;
-  groupButtonSubtleBackgroundHover: string;
-  groupButtonSubtleBackgroundPressed: string;
-  groupButtonSubtleBackgroundSelected: string;
-  groupButtonSubtleBackgroundHoverSelected: string;
-  groupButtonSubtleBackgroundPressedSelected: string;
-  groupButtonSubtleBackgroundDisabled: string;
-  groupButtonTransparentBackground: string;
-  groupButtonTransparentBackgroundHover: string;
-  groupButtonTransparentBackgroundPressed: string;
-  groupButtonTransparentBackgroundSelected: string;
-  groupButtonTransparentBackgroundHoverSelected: string;
-  groupButtonTransparentBackgroundPressedSelected: string;
-  groupButtonTransparentBackgroundDisabled: string;
-  groupButtonNeutralStroke: string;
-  groupButtonNeutralStrokeHover: string;
-  groupButtonNeutralStrokePressed: string;
-  groupButtonNeutralStrokeSelected: string;
-  groupButtonNeutralStrokeHoverSelected: string;
-  groupButtonNeutralStrokePressedSelected: string;
-  groupButtonNeutralStrokeDisabled: string;
-  groupButtonPrimaryStroke: string;
-  groupButtonPrimaryStrokeHover: string;
-  groupButtonPrimaryStrokePressed: string;
-  groupButtonPrimaryStrokeSelected: string;
-  groupButtonPrimaryStrokeHoverSelected: string;
-  groupButtonPrimaryStrokePressedSelected: string;
-  groupButtonPrimaryStrokeDisabled: string;
-  groupButtonOutlineStroke: string;
-  groupButtonOutlineStrokeHover: string;
-  groupButtonOutlineStrokePressed: string;
-  groupButtonOutlineStrokeSelected: string;
-  groupButtonOutlineStrokeHoverSelected: string;
-  groupButtonOutlineStrokePressedSelected: string;
-  groupButtonOutlineStrokeDisabled: string;
-  groupButtonSubtleStroke: string;
-  groupButtonSubtleStrokeHover: string;
-  groupButtonSubtleStrokePressed: string;
-  groupButtonSubtleStrokeSelected: string;
-  groupButtonSubtleStrokeHoverSelected: string;
-  groupButtonSubtleStrokePressedSelected: string;
-  groupButtonSubtleStrokeDisabled: string;
-  groupButtonTransparentStroke: string;
-  groupButtonTransparentStrokeHover: string;
-  groupButtonTransparentStrokePressed: string;
-  groupButtonTransparentStrokeSelected: string;
-  groupButtonTransparentStrokeHoverSelected: string;
-  groupButtonTransparentStrokePressedSelected: string;
-  groupButtonTransparentStrokeDisabled: string;
-  groupButtonSmallPaddingHorizontal: string;
-  groupButtonSmallPaddingTop: string;
-  groupButtonSmallPaddingBottom: string;
-  groupButtonSmallGap: string;
-  groupButtonSmallMinwidth: string;
-  groupButtonSmallMinheight: string;
-  groupButtonMediumPaddingHorizontal: string;
-  groupButtonMediumPaddingTop: string;
-  groupButtonMediumPaddingBottom: string;
-  groupButtonMediumGap: string;
-  groupButtonMediumMinwidth: string;
-  groupButtonMediumMinheight: string;
-  groupButtonLargePaddingHorizontal: string;
-  groupButtonLargePaddingTop: string;
-  groupButtonLargePaddingBottom: string;
-  groupButtonLargeGap: string;
-  groupButtonLargeMinwidth: string;
-  groupButtonLargeMinheight: string;
-  groupButtonSmallCorner: string;
-  groupButtonSmallCornerHover: string;
-  groupButtonSmallCornerPressed: string;
-  groupButtonSmallCornerSelected: string;
-  groupButtonSmallCornerHoverSelected: string;
-  groupButtonSmallCornerPressedSelected: string;
-  groupButtonSmallCornerDisabled: string;
-  groupButtonMediumCorner: string;
-  groupButtonMediumCornerHover: string;
-  groupButtonMediumCornerPressed: string;
-  groupButtonMediumCornerSelected: string;
-  groupButtonMediumCornerHoverSelected: string;
-  groupButtonMediumCornerPressedSelected: string;
-  groupButtonMediumCornerDisabled: string;
-  groupButtonLargeCorner: string;
-  groupButtonLargeCornerHover: string;
-  groupButtonLargeCornerPressed: string;
-  groupButtonLargeCornerSelected: string;
-  groupButtonLargeCornerHoverSelected: string;
-  groupButtonLargeCornerPressedSelected: string;
-  groupButtonLargeCornerDisabled: string;
-  groupButtonOutlineStrokewidth: string;
-  groupButtonOutlineStrokewidthHover: string;
-  groupButtonOutlineStrokewidthPressed: string;
-  groupButtonOutlineStrokewidthSelected: string;
-  groupButtonNeutralShadow: string;
-  groupButtonNeutralShadowDisabled: string;
-  groupButtonNeutralShadowSelected: string;
-  groupButtonNeutralShadowDisabledSelected: string;
-  groupButtonPrimaryShadow: string;
-  groupButtonPrimaryShadowDisabled: string;
-  groupButtonPrimaryShadowSelected: string;
-  groupButtonPrimaryShadowDisabledSelected: string;
-  groupButtonSmallIcononlyPadding: string;
-  groupButtonMediumIcononlyPadding: string;
-  groupButtonLargeIcononlyPadding: string;
-  groupButtonNeutralIconForeground: string;
-  groupButtonNeutralIconForegroundHover: string;
-  groupButtonNeutralIconForegroundPressed: string;
-  groupButtonNeutralIconForegroundDisabled: string;
-  groupButtonNeutralIconForegroundSelected: string;
-  groupButtonPrimaryIconForeground: string;
-  groupButtonPrimaryIconForegroundHover: string;
-  groupButtonPrimaryIconForegroundPressed: string;
-  groupButtonPrimaryIconForegroundDisabled: string;
-  groupButtonPrimaryIconForegroundSelected: string;
-  groupButtonOutlineIconForeground: string;
-  groupButtonOutlineIconForegroundHover: string;
-  groupButtonOutlineIconForegroundPressed: string;
-  groupButtonOutlineIconForegroundDisabled: string;
-  groupButtonOutlineIconForegroundSelected: string;
-  groupButtonSubtleIconForeground: string;
-  groupButtonSubtleIconForegroundHover: string;
-  groupButtonSubtleIconForegroundPressed: string;
-  groupButtonSubtleIconForegroundDisabled: string;
-  groupButtonSubtleIconForegroundSelected: string;
-  groupButtonTransparentIconForeground: string;
-  groupButtonTransparentIconForegroundHover: string;
-  groupButtonTransparentIconForegroundPressed: string;
-  groupButtonTransparentIconForegroundDisabled: string;
-  groupButtonTransparentIconForegroundSelected: string;
-  groupButtonSmallIconSize: string;
-  groupButtonMediumIconSize: string;
-  groupButtonLargeIconSize: string;
-  groupButtonDividerStrokewidth: string;
-  groupButtonDividerMarginVertical: string;
-  groupButtonNeutralDividerForeground: string;
-  groupButtonPrimaryDividerForeground: string;
-  groupButtonOutlineDividerForeground: string;
-  groupButtonSubtleDividerForeground: string;
-  groupButtonTransparentDividerForeground: string;
-  groupButtonNeutralChevronForeground: string;
-  groupButtonNeutralChevronForegroundHover: string;
-  groupButtonNeutralChevronForegroundPressed: string;
-  groupButtonNeutralChevronForegroundSelected: string;
-  groupButtonNeutralChevronForegroundDisabled: string;
-  groupButtonPrimaryChevronForeground: string;
-  groupButtonPrimaryChevronForegroundHover: string;
-  groupButtonPrimaryChevronForegroundPressed: string;
-  groupButtonPrimaryChevronForegroundSelected: string;
-  groupButtonPrimaryChevronForegroundDisabled: string;
-  groupButtonOutlineChevronForeground: string;
-  groupButtonOutlineChevronForegroundHover: string;
-  groupButtonOutlineChevronForegroundPressed: string;
-  groupButtonOutlineChevronForegroundSelected: string;
-  groupButtonOutlineChevronForegroundDisabled: string;
-  groupButtonSubtleChevronForeground: string;
-  groupButtonSubtleChevronForegroundHover: string;
-  groupButtonSubtleChevronForegroundPressed: string;
-  groupButtonSubtleChevronForegroundSelected: string;
-  groupButtonSubtleChevronForegroundDisabled: string;
-  groupButtonTransparentChevronForeground: string;
-  groupButtonTransparentChevronForegroundHover: string;
-  groupButtonTransparentChevronForegroundPressed: string;
-  groupButtonTransparentChevronForegroundSelected: string;
-  groupButtonTransparentChevronForegroundDisabled: string;
-  groupButtonSmallChevronSize: string;
-  groupButtonMediumChevronSize: string;
-  groupButtonLargeChevronSize: string;
-  groupButtonTextFontfamily: string;
-  groupButtonNeutralTextForeground: string;
-  groupButtonNeutralTextForegroundHover: string;
-  groupButtonNeutralTextForegroundPressed: string;
-  groupButtonNeutralTextForegroundDisabled: string;
-  groupButtonNeutralTextForegroundSelected: string;
-  groupButtonPrimaryTextForeground: string;
-  groupButtonPrimaryTextForegroundHover: string;
-  groupButtonPrimaryTextForegroundPressed: string;
-  groupButtonPrimaryTextForegroundDisabled: string;
-  groupButtonPrimaryTextForegroundSelected: string;
-  groupButtonOutlineTextForeground: string;
-  groupButtonOutlineTextForegroundHover: string;
-  groupButtonOutlineTextForegroundPressed: string;
-  groupButtonOutlineTextForegroundDisabled: string;
-  groupButtonOutlineTextForegroundSelected: string;
-  groupButtonSubtleTextForeground: string;
-  groupButtonSubtleTextForegroundHover: string;
-  groupButtonSubtleTextForegroundPressed: string;
-  groupButtonSubtleTextForegroundDisabled: string;
-  groupButtonSubtleTextForegroundSelected: string;
-  groupButtonTransparentTextForeground: string;
-  groupButtonTransparentTextForegroundHover: string;
-  groupButtonTransparentTextForegroundPressed: string;
-  groupButtonTransparentTextForegroundDisabled: string;
-  groupButtonTransparentTextForegroundSelected: string;
-  groupButtonSmallTextPaddingHorizontal: string;
-  groupButtonSmallTextFontsize: string;
-  groupButtonSmallTextLineheight: string;
-  groupButtonSmallTextFontweight: string;
-  groupButtonMediumTextPaddingHorizontal: string;
-  groupButtonMediumTextFontsize: string;
-  groupButtonMediumTextLineheight: string;
-  groupButtonMediumTextFontweight: string;
-  groupButtonLargeTextPaddingHorizontal: string;
-  groupButtonLargeTextFontsize: string;
-  groupButtonLargeTextLineheight: string;
-  groupButtonLargeTextFontweight: string;
-  groupButtonSmallTextFontweightSelected: string;
-  groupButtonMediumTextFontweightSelected: string;
-  groupButtonLargeTextFontweightSelected: string;
-  groupButtonNeutralTextSecondaryForeground: string;
-  groupButtonNeutralTextSecondaryForegroundHover: string;
-  groupButtonNeutralTextSecondaryForegroundPressed: string;
-  groupButtonNeutralTextSecondaryForegroundDisabled: string;
-  groupButtonPrimaryTextSecondaryForeground: string;
-  groupButtonPrimaryTextSecondaryForegroundHover: string;
-  groupButtonPrimaryTextSecondaryForegroundPressed: string;
-  groupButtonPrimaryTextSecondaryForegroundDisabled: string;
-  groupButtonOutlineTextSecondaryForeground: string;
-  groupButtonOutlineTextSecondaryForegroundHover: string;
-  groupButtonOutlineTextSecondaryForegroundPressed: string;
-  groupButtonOutlineTextSecondaryForegroundDisabled: string;
-  groupButtonSubtleTextSecondaryForeground: string;
-  groupButtonSubtleTextSecondaryForegroundHover: string;
-  groupButtonSubtleTextSecondaryForegroundPressed: string;
-  groupButtonSubtleTextSecondaryForegroundDisabled: string;
-  groupButtonTransparentTextSecondaryForeground: string;
-  groupButtonTransparentTextSecondaryForegroundHover: string;
-  groupButtonTransparentTextSecondaryForegroundPressed: string;
-  groupButtonTransparentTextSecondaryForegroundDisabled: string;
-  groupButtonSmallTextSecondaryFontsize: string;
-  groupButtonSmallTextSecondaryLineheight: string;
-  groupButtonSmallTextSecondaryFontweight: string;
-  groupButtonMediumTextSecondaryFontsize: string;
-  groupButtonMediumTextSecondaryLineheight: string;
-  groupButtonMediumTextSecondaryFontweight: string;
-  groupButtonLargeTextSecondaryFontsize: string;
-  groupButtonLargeTextSecondaryLineheight: string;
-  groupButtonLargeTextSecondaryFontweight: string;
-};
+type VisualRefreshTheme = Record<string, string>;
 
 const visualRefreshTokens: Partial<Record<keyof VisualRefreshTheme, string>> = {
   ...tokens,
-  groupButtonStrokewidth: '1px',
+  'smtc-group-button-stroke-width': tokens.strokeWidthThin,
+  'smtc-group-button-neutral-background': tokens.colorNeutralBackground2,
+  'smtc-group-button-neutral-background-hover': tokens.colorNeutralBackground2Hover,
+  'smtc-group-button-neutral-background-pressed': tokens.colorNeutralBackground2Pressed,
+  'smtc-group-button-neutral-background-selected': tokens.colorNeutralBackground2,
+  'smtc-group-button-neutral-background-hover-selected': tokens.colorNeutralBackground2Hover,
+  'smtc-group-button-neutral-background-pressed-selected': tokens.colorNeutralBackground2Pressed,
+  'smtc-group-button-neutral-background-disabled': tokens.colorNeutralBackgroundDisabled,
+  'smtc-group-button-primary-background': '#03787c',
+  'smtc-group-button-primary-background-hover': '#02494c',
+  'smtc-group-button-primary-background-pressed': '#00393d',
+  'smtc-group-button-primary-background-selected': '#03787c',
+  'smtc-group-button-primary-background-hover-selected': '#02494c',
+  'smtc-group-button-primary-background-pressed-selected': '#00393d',
+  'smtc-group-button-primary-background-disabled': tokens.colorNeutralBackgroundDisabled,
+  'smtc-group-button-outline-background': tokens.colorTransparentBackground,
+  'smtc-group-button-outline-background-hover': tokens.colorTransparentBackgroundHover,
+  'smtc-group-button-outline-background-pressed': tokens.colorTransparentBackgroundPressed,
+  'smtc-group-button-outline-background-selected': tokens.colorTransparentBackground,
+  'smtc-group-button-outline-background-hover-selected': tokens.colorTransparentBackgroundHover,
+  'smtc-group-button-outline-background-pressed-selected': tokens.colorTransparentBackgroundPressed,
+  'smtc-group-button-outline-background-disabled': tokens.colorTransparentBackground,
+  'smtc-group-button-subtle-background': tokens.colorTransparentBackground,
+  'smtc-group-button-subtle-background-hover': tokens.colorSubtleBackgroundHover,
+  'smtc-group-button-subtle-background-pressed': tokens.colorSubtleBackgroundPressed,
+  'smtc-group-button-subtle-background-selected': tokens.colorTransparentBackground,
+  'smtc-group-button-subtle-background-hover-selected': tokens.colorSubtleBackgroundHover,
+  'smtc-group-button-subtle-background-pressed-selected': tokens.colorSubtleBackgroundPressed,
+  'smtc-group-button-subtle-background-disabled': tokens.colorTransparentBackground,
+  'smtc-group-button-transparent-background': tokens.colorTransparentBackground,
+  'smtc-group-button-transparent-background-hover': tokens.colorTransparentBackgroundHover,
+  'smtc-group-button-transparent-background-pressed': tokens.colorTransparentBackgroundPressed,
+  'smtc-group-button-transparent-background-selected': tokens.colorTransparentBackground,
+  'smtc-group-button-transparent-background-hover-selected': tokens.colorTransparentBackgroundHover,
+  'smtc-group-button-transparent-background-pressed-selected': tokens.colorTransparentBackgroundPressed,
+  'smtc-group-button-transparent-background-disabled': tokens.colorTransparentBackground,
+  'smtc-group-button-neutral-stroke': tokens.colorNeutralStroke1,
+  'smtc-group-button-neutral-stroke-hover': tokens.colorNeutralStroke1Hover,
+  'smtc-group-button-neutral-stroke-pressed': tokens.colorNeutralStroke1Pressed,
+  'smtc-group-button-neutral-stroke-selected': tokens.colorNeutralStroke1,
+  'smtc-group-button-neutral-stroke-hover-selected': tokens.colorNeutralStroke1Hover,
+  'smtc-group-button-neutral-stroke-pressed-selected': tokens.colorNeutralStroke1Pressed,
+  'smtc-group-button-neutral-stroke-disabled': tokens.colorNeutralStrokeDisabled,
+  'smtc-group-button-primary-stroke': tokens.colorTransparentStroke,
+  'smtc-group-button-primary-stroke-hover': tokens.colorTransparentStroke,
+  'smtc-group-button-primary-stroke-pressed': tokens.colorTransparentStroke,
+  'smtc-group-button-primary-stroke-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-primary-stroke-hover-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-primary-stroke-pressed-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-primary-stroke-disabled': tokens.colorTransparentStroke,
+  'smtc-group-button-outline-stroke': tokens.colorNeutralStroke1,
+  'smtc-group-button-outline-stroke-hover': tokens.colorNeutralStroke1Hover,
+  'smtc-group-button-outline-stroke-pressed': tokens.colorNeutralStroke1Pressed,
+  'smtc-group-button-outline-stroke-selected': tokens.colorNeutralStroke1,
+  'smtc-group-button-outline-stroke-hover-selected': tokens.colorNeutralStroke1Hover,
+  'smtc-group-button-outline-stroke-pressed-selected': tokens.colorNeutralStroke1Pressed,
+  'smtc-group-button-outline-stroke-disabled': tokens.colorNeutralStrokeDisabled,
+  'smtc-group-button-subtle-stroke': tokens.colorTransparentStroke,
+  'smtc-group-button-subtle-stroke-hover': tokens.colorTransparentStroke,
+  'smtc-group-button-subtle-stroke-pressed': tokens.colorTransparentStroke,
+  'smtc-group-button-subtle-stroke-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-subtle-stroke-hover-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-subtle-stroke-pressed-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-subtle-stroke-disabled': tokens.colorTransparentStroke,
+  'smtc-group-button-transparent-stroke': tokens.colorTransparentStroke,
+  'smtc-group-button-transparent-stroke-hover': tokens.colorTransparentStroke,
+  'smtc-group-button-transparent-stroke-pressed': tokens.colorTransparentStroke,
+  'smtc-group-button-transparent-stroke-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-transparent-stroke-hover-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-transparent-stroke-pressed-selected': tokens.colorTransparentStroke,
+  'smtc-group-button-transparent-stroke-disabled': tokens.colorTransparentStroke,
+  'smtc-group-button-small-padding-horizontal': tokens.spacingHorizontalS,
+  'smtc-group-button-small-padding-top': tokens.spacingVerticalXS,
+  'smtc-group-button-small-padding-bottom': tokens.spacingVerticalXS,
+  'smtc-group-button-small-gap': tokens.spacingHorizontalXS,
+  'smtc-group-button-small-minwidth': '64px',
+  'smtc-group-button-small-minheight': '28px',
+  'smtc-group-button-medium-padding-horizontal': tokens.spacingHorizontalM,
+  'smtc-group-button-medium-padding-top': tokens.spacingVerticalS,
+  'smtc-group-button-medium-padding-bottom': tokens.spacingVerticalS,
+  'smtc-group-button-medium-gap': tokens.spacingHorizontalSNudge,
+  'smtc-group-button-medium-minwidth': '96px',
+  'smtc-group-button-medium-minheight': '36px',
+  'smtc-group-button-large-padding-horizontal': tokens.spacingHorizontalM,
+  'smtc-group-button-large-padding-top': tokens.spacingVerticalMNudge,
+  'smtc-group-button-large-padding-bottom': tokens.spacingVerticalMNudge,
+  'smtc-group-button-large-gap': tokens.spacingHorizontalSNudge,
+  'smtc-group-button-large-minwidth': '96px',
+  'smtc-group-button-large-minheight': '40px',
+  'smtc-group-button-small-corner': '12px',
+  'smtc-group-button-small-corner-hover': '12px',
+  'smtc-group-button-small-corner-pressed': '12px',
+  'smtc-group-button-small-corner-selected': '12px',
+  'smtc-group-button-small-corner-hover-selected': '12px',
+  'smtc-group-button-small-corner-pressed-selected': '12px',
+  'smtc-group-button-small-corner-disabled': '12px',
+  'smtc-group-button-medium-corner': '12px',
+  'smtc-group-button-medium-corner-hover': '12px',
+  'smtc-group-button-medium-corner-pressed': '12px',
+  'smtc-group-button-medium-corner-selected': '12px',
+  'smtc-group-button-medium-corner-hover-selected': '12px',
+  'smtc-group-button-medium-corner-pressed-selected': '12px',
+  'smtc-group-button-medium-corner-disabled': '12px',
+  'smtc-group-button-large-corner': '12px',
+  'smtc-group-button-large-corner-hover': '12px',
+  'smtc-group-button-large-corner-pressed': '12px',
+  'smtc-group-button-large-corner-selected': '12px',
+  'smtc-group-button-large-corner-hover-selected': '12px',
+  'smtc-group-button-large-corner-pressed-selected': '12px',
+  'smtc-group-button-large-corner-disabled': '12px',
+  'smtc-group-button-outline-stroke-width': tokens.strokeWidthThin,
+  'smtc-group-button-outline-stroke-width-hover': tokens.strokeWidthThin,
+  'smtc-group-button-outline-stroke-width-pressed': tokens.strokeWidthThin,
+  'smtc-group-button-outline-stroke-width-selected': tokens.strokeWidthThicker,
+  'smtc-group-button-neutral-shadow': '0 0 0 transparent',
+  'smtc-group-button-neutralShadowDisabled': '0 0 0 transparent',
+  'smtc-group-button-neutralShadowSelected': '0 0 0 transparent',
+  'smtc-group-button-neutralShadowDisabledSelected': '0 0 0 transparent',
+  'smtc-group-button-primary-shadow': '0 0 0 transparent',
+  'smtc-group-button-primary-shadow-disabled': '0 0 0 transparent',
+  'smtc-group-button-primary-shadow-selected': '0 0 0 transparent',
+  'smtc-group-button-primary-shadow-disabled-selected': '0 0 0 transparent',
+  'smtc-group-button-small-icononly-padding': '1px',
+  'smtc-group-button-medium-icononly-padding': '5px',
+  'smtc-group-button-large-icononly-padding': '7px',
+  'smtc-group-button-neutral-icon-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-neutral-icon-foreground-hover': tokens.colorNeutralForeground3Hover,
+  'smtc-group-button-neutral-icon-foreground-pressed': '#00595D',
+  'smtc-group-button-neutral-icon-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-neutral-icon-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-primary-icon-foreground': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-icon-foreground-hover': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-icon-foreground-pressed': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-icon-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-primary-icon-foreground-selected': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-outline-icon-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-outline-icon-foreground-hover': tokens.colorNeutralForeground3Hover,
+  'smtc-group-button-outline-icon-foreground-pressed': '#00595D',
+  'smtc-group-button-outline-icon-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-outline-icon-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-subtle-icon-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-subtle-icon-foreground-hover': '#00686D',
+  'smtc-group-button-subtle-icon-foreground-pressed': '#00595D',
+  'smtc-group-button-subtle-icon-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-subtle-icon-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-transparent-icon-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-transparent-icon-foreground-hover': '#00686D',
+  'smtc-group-button-transparent-icon-foreground-pressed': '#00595D',
+  'smtc-group-button-transparent-icon-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-transparent-icon-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-small-icon-size': '20px',
+  'smtc-group-button-medium-icon-size': '20px',
+  'smtc-group-button-large-icon-size': '24px',
+  'smtc-group-button-divider-stroke-width': tokens.strokeWidthThin,
+  'smtc-group-button-divider-margin-vertical': '0px',
+  'smtc-group-button-neutral-divider-foreground': tokens.colorNeutralStroke1,
+  'smtc-group-button-primary-divider-foreground': tokens.colorNeutralStrokeOnBrand,
+  'smtc-group-button-outline-divider-foreground': tokens.colorNeutralStroke1,
+  'smtc-group-button-subtle-divider-foreground': 'transparent',
+  'smtc-group-button-transparent-divider-foreground': 'transparent',
+  'smtc-group-button-neutral-chevron-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-neutral-chevron-foreground-hover': tokens.colorNeutralForeground3Hover,
+  'smtc-group-button-neutral-chevron-foreground-pressed': '#00595D',
+  'smtc-group-button-neutral-chevron-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-neutral-chevron-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-primary-chevron-foreground': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-chevron-foreground-hover': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-chevron-foreground-pressed': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-chevron-foreground-selected': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-chevron-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-outline-chevron-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-outline-chevron-foreground-hover': tokens.colorNeutralForeground3Hover,
+  'smtc-group-button-outline-chevron-foreground-pressed': '#00595D',
+  'smtc-group-button-outline-chevron-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-outline-chevron-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-subtle-chevron-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-subtle-chevron-foreground-hover': '#00686D',
+  'smtc-group-button-subtle-chevron-foreground-pressed': '#00595D',
+  'smtc-group-button-subtle-chevron-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-subtle-chevron-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-transparent-chevron-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-transparent-chevron-foreground-hover': '#00686D',
+  'smtc-group-button-transparent-chevron-foreground-pressed': '#00595D',
+  'smtc-group-button-transparent-chevron-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-transparent-chevron-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-small-chevron-size': '20px',
+  'smtc-group-button-medium-chevron-size': '20px',
+  'smtc-group-button-large-chevron-size': '24px',
+  'smtc-group-button-text-fontfamily': tokens.fontFamilyBase,
+  'smtc-group-button-neutral-text-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-neutral-text-hover': tokens.colorNeutralForeground3Hover,
+  'smtc-group-button-neutral-text-foreground-pressed': tokens.colorNeutralForeground3Pressed,
+  'smtc-group-button-neutral-text-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-neutral-text-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-primary-text-foreground': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-text-foreground-hover': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-text-foreground-pressed': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-text-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-primary-text-foreground-selected': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-outline-text-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-outline-text-foreground-hover': tokens.colorNeutralForeground3Hover,
+  'smtc-group-button-outline-text-foreground-pressed': tokens.colorNeutralForeground3Pressed,
+  'smtc-group-button-outline-text-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-outline-text-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-subtle-text-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-subtle-text-foreground-hover': tokens.colorNeutralForeground3Hover,
+  'smtc-group-button-subtle-text-foreground-pressed': tokens.colorNeutralForeground3Pressed,
+  'smtc-group-button-subtle-text-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-subtle-text-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-transparent-text-foreground': tokens.colorNeutralForeground3,
+  'smtc-group-button-transparent-text-foreground-hover': '#00686D',
+  'smtc-group-button-transparent-text-foreground-pressed': '#00595D',
+  'smtc-group-button-transparent-text-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-transparent-text-foreground-selected': tokens.colorNeutralForeground3,
+  'smtc-group-button-small-text--padding-horizontal': tokens.spacingHorizontalS,
+  'smtc-group-button-small-text-fontsize': tokens.fontSizeBase200,
+  'smtc-group-button-small-text-lineheight': tokens.lineHeightBase200,
+  'smtc-group-button-small-text-fontweight': tokens.fontWeightSemibold,
+  'smtc-group-button-medium-text--padding-Horizontal': tokens.spacingHorizontalM,
+  'smtc-group-button-medium-text-fontsize': tokens.fontSizeBase300,
+  'smtc-group-button-medium-text-lineheight': tokens.lineHeightBase300,
+  'smtc-group-button-medium-text-fontweight': tokens.fontWeightSemibold,
+  'smtc-group-button-large-text--padding-Horizontal': tokens.spacingHorizontalM,
+  'smtc-group-button-large-text-fontsize': tokens.fontSizeBase300,
+  'smtc-group-button-large-text-lineheight': tokens.lineHeightBase300,
+  'smtc-group-button-large-text-fontweight': tokens.fontWeightSemibold,
+  'smtc-group-button-small-text-fontweight-selected': tokens.fontWeightSemibold,
+  'smtc-group-button-medium-text-fontweight-selected': tokens.fontWeightSemibold,
+  'smtc-group-button-large-text-fontweight-selected': tokens.fontWeightSemibold,
+  'smtc-group-button-neutral-text-secondary-foreground': tokens.colorNeutralForeground2,
+  'smtc-group-button-neutral-text-secondary-foreground-hover': tokens.colorNeutralForeground2Hover,
+  'smtc-group-button-neutral-text-secondary-foreground-pressed': tokens.colorNeutralForeground2Pressed,
+  'smtc-group-button-neutral-text-secondary-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-primary-text-secondary-foreground': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-text-secondary-foreground-hover': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-text-secondary-foreground-pressed': tokens.colorNeutralForegroundOnBrand,
+  'smtc-group-button-primary-text-secondary-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-outline-text-secondary-foreground': tokens.colorNeutralForeground2,
+  'smtc-group-button-outline-text-secondary-foreground-hover': tokens.colorNeutralForeground2Hover,
+  'smtc-group-button-outline-text-secondary-foreground-pressed': tokens.colorNeutralForeground2Pressed,
+  'smtc-group-button-outline-text-secondary-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-subtle-text-secondary-foreground': tokens.colorNeutralForeground2,
+  'smtc-group-button-subtle-text-secondary-foreground-hover': tokens.colorNeutralForeground2Hover,
+  'smtc-group-button-subtle-text-secondary-foreground-pressed': tokens.colorNeutralForeground2Pressed,
+  'smtc-group-button-subtle-text-secondary-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-transparent-text-secondary-foreground': tokens.colorNeutralForeground2,
+  'smtc-group-button-transparent-text-secondary-foreground-hover': tokens.colorNeutralForeground2Hover,
+  'smtc-group-button-transparent-text-secondary-foreground-pressed': tokens.colorNeutralForeground2Pressed,
+  'smtc-group-button-transparent-text-secondary-foreground-disabled': tokens.colorNeutralForegroundDisabled,
+  'smtc-group-button-small-text-secondary-fontsize': tokens.fontSizeBase200,
+  'smtc-group-button-small-text-secondary-lineheight': '100%',
+  'smtc-group-button-small-text-secondary-fontweight': tokens.fontWeightRegular,
+  'smtc-group-button-medium-text-secondary-fontsize': tokens.fontSizeBase200,
+  'smtc-group-button-medium-text-secondary-lineheight': '100%',
+  'smtc-group-button-medium-text-secondary-fontweight': tokens.fontWeightRegular,
+  'smtc-group-button-large-text-secondary-fontsize': tokens.fontSizeBase300,
+  'smtc-group-button-large-text-secondary-lineheight': '100%',
+  'smtc-group-button-large-text-secondary-fontweight': tokens.fontWeightRegular,
 };
+
+const CalendarMonth = bundleIcon(CalendarMonthFilled, CalendarMonthRegular);
+
+const useStyles = makeStyles({
+  wrapper: {
+    columnGap: '15px',
+    display: 'flex',
+  },
+});
 
 const visualRefreshTheme = { ...webLightTheme, ...visualRefreshTokens };
 export const ButtonVisualRefresh = (): JSXElement => {
-  return <FluentProvider theme={visualRefreshTheme as Partial<Theme>}>Visual</FluentProvider>;
+  const styles = useStyles();
+  return (
+    <FluentProvider theme={visualRefreshTheme as Partial<Theme>} customStyleHooks_unstable={SEMANTIC_STYLE_HOOKS}>
+      <div className={styles.wrapper}>
+        <Button icon={<CalendarMonthRegular />}>Default</Button>
+        <Button appearance="primary" icon={<CalendarMonthRegular />}>
+          Primary
+        </Button>
+        <Button appearance="outline" icon={<CalendarMonth />}>
+          Outline
+        </Button>
+        <Button appearance="subtle" icon={<CalendarMonth />}>
+          Subtle
+        </Button>
+        <Button appearance="transparent" icon={<CalendarMonth />}>
+          Transparent
+        </Button>
+      </div>
+    </FluentProvider>
+  );
 };
 
 ButtonVisualRefresh.parameters = {
