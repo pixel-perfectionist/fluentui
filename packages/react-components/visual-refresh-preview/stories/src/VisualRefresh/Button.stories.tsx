@@ -130,9 +130,9 @@ const visualRefreshTokens: Partial<Record<keyof VisualRefreshTheme, string>> = {
   'smtc-group-button-outline-stroke-width-pressed': '1px',
   'smtc-group-button-outline-stroke-width-selected': '3px',
   'smtc-group-button-neutral-shadow': '0 0 0 transparent',
-  'smtc-group-button-neutralShadowDisabled': '0 0 0 transparent',
-  'smtc-group-button-neutralShadowSelected': '0 0 0 transparent',
-  'smtc-group-button-neutralShadowDisabledSelected': '0 0 0 transparent',
+  'smtc-group-button-neutral-shadow-disabled': '0 0 0 transparent',
+  'smtc-group-button-neutral-shadow-selected': '0 0 0 transparent',
+  'smtc-group-button-neutral-shadow-disabled-selected': '0 0 0 transparent',
   'smtc-group-button-primary-shadow': '0 0 0 transparent',
   'smtc-group-button-primary-shadow-disabled': '0 0 0 transparent',
   'smtc-group-button-primary-shadow-selected': '0 0 0 transparent',
@@ -203,7 +203,8 @@ const visualRefreshTokens: Partial<Record<keyof VisualRefreshTheme, string>> = {
   'smtc-group-button-small-chevron-size': '20px',
   'smtc-group-button-medium-chevron-size': '20px',
   'smtc-group-button-large-chevron-size': '24px',
-  'smtc-group-button-text-fontfamily': '\'Segoe UI\', \'Segoe UI Web (West European)\', -apple-system, BlinkMacSystemFont, Roboto, \'Helvetica Neue\', sans-serif',
+  'smtc-group-button-text-fontfamily':
+    "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif",
   'smtc-group-button-neutral-text-foreground': '#616161',
   'smtc-group-button-neutral-text-hover': '#424242',
   'smtc-group-button-neutral-text-foreground-pressed': '#424242',
@@ -233,11 +234,11 @@ const visualRefreshTokens: Partial<Record<keyof VisualRefreshTheme, string>> = {
   'smtc-group-button-small-text-fontsize': '12px',
   'smtc-group-button-small-text-lineheight': '16px',
   'smtc-group-button-small-text-fontweight': '600',
-  'smtc-group-button-medium-text--padding-Horizontal': '12px',
+  'smtc-group-button-medium-text-padding-horizontal': '12px',
   'smtc-group-button-medium-text-fontsize': '14px',
   'smtc-group-button-medium-text-lineheight': '20px',
   'smtc-group-button-medium-text-fontweight': '600',
-  'smtc-group-button-large-text--padding-Horizontal': '12px',
+  'smtc-group-button-large-text--padding-horizontal': '12px',
   'smtc-group-button-large-text-fontsize': '14px',
   'smtc-group-button-large-text-lineheight': '20px',
   'smtc-group-button-large-text-fontweight': '600',
@@ -285,6 +286,7 @@ const useStyles = makeStyles({
 });
 
 const visualRefreshTheme = { ...webLightTheme, ...visualRefreshTokens };
+
 export const ButtonVisualRefresh = (): JSXElement => {
   const styles = useStyles();
   return (
