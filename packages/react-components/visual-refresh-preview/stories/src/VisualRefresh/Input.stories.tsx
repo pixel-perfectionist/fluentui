@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { InputProps, JSXElement, SwitchOnChangeData } from '@fluentui/react-components';
 import { makeStyles, useId, Input, Label, Select, Switch, tokens } from '@fluentui/react-components';
-import {CalendarLtrRegular, ChevronDownRegular} from '@fluentui/react-icons';
+import {bundleIcon, CalendarLtrRegular, CalendarLtrFilled, ChevronDownRegular} from '@fluentui/react-icons';
 import { VisualRefreshProvider } from '../provider';
 import {ComponentStatesTable, type ComponentState} from '../ComponentStatesTable';
 
@@ -91,7 +91,6 @@ const inputVariants: Array<{ label: string; appearance?: InputProps['appearance'
   // { label: 'Transparent', appearance: 'filled-darker', content: 'Transparent' },
 ];
 
-// TODO" focus?
 const componentStateOrder: ComponentState[] = ['rest', 'hover', 'pressed', 'error', 'disabled'];
 const componentStateLabels: Partial<Record<ComponentState, string>> = {
   rest: 'Rest',
@@ -101,7 +100,7 @@ const componentStateLabels: Partial<Record<ComponentState, string>> = {
   disabled: 'Disabled',
 };
 
-
+const CalendarLtr = bundleIcon(CalendarLtrFilled, CalendarLtrRegular);
 
 const InputStateCell = ({ appearance, state, size, isVisualRefreshEnabled }: {
   appearance?: InputProps['appearance'];
@@ -111,10 +110,13 @@ const InputStateCell = ({ appearance, state, size, isVisualRefreshEnabled }: {
 }) => {
 return (
   <Input
+   placeholder='Placeholder text'
    appearance={appearance}
     disabled={state === 'disabled'}
+    root={{ className: state }}
+    input={{ "aria-invalid": state === 'error' }}
     size={size}
-    contentBefore={<CalendarLtrRegular/>}
+    contentBefore={<CalendarLtr/>}
     contentAfter={<ChevronDownRegular/>}
   />
 );
@@ -158,9 +160,17 @@ export const InputVisualRefresh = (): JSXElement => {
       <div className={styles.previewSection}>
         <Label className={styles.previewLabel}>Preview</Label>
         <div className={styles.previewContent}>
-          <Input size={controlSize}
-          // input={{ "aria-invalid": true }}
-          ></Input>
+           <Input
+            placeholder='Placeholder text'
+            size={controlSize}
+            aria-invalid={true}
+          />
+          <Input
+            placeholder='Placeholder text'
+            size={controlSize}
+            contentBefore={<CalendarLtr/>}
+            contentAfter={<ChevronDownRegular/>}
+          />
         </div>
       </div>
       {isVisualRefreshEnabled && (

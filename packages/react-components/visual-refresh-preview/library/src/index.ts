@@ -374,6 +374,11 @@ export const TEAMS_VISUAL_REFRESH_THEME = {
   'iconColor/ctrl/transparent/disabled': tokens.colorNeutralForegroundDisabled,
 
   // Input
+  // Horizontal Padding
+  'padding/ctrl/horizontal-default/sm': tokens.spacingHorizontalS,
+  'padding/ctrl/horizontal-default/md': tokens.spacingHorizontalM,
+  'padding/ctrl/horizontal-default/lg': tokens.spacingHorizontalM,
+
   // Background
   'ctrl/input/background/rest': tokens.colorNeutralBackground1,
   'ctrl/input/background/hover': tokens.colorNeutralBackground1,
@@ -394,8 +399,15 @@ export const TEAMS_VISUAL_REFRESH_THEME = {
   'ctrl/input/stroke/pressed': '#03787C', // tokens.colorBrandStroke1
   'ctrl/input/stroke/error': tokens.colorStatusDangerBorder2,
   'ctrl/input/stroke/disabled': tokens.colorNeutralStrokeDisabled,
+  'ctrl/input/strokeWidth/rest': tokens.strokeWidthThin,
+  'ctrl/input/strokeWidth/hover': tokens.strokeWidthThin,
+  'ctrl/input/strokeWidth/pressed': tokens.strokeWidthThick,
+  'ctrl/input/strokeWidth/disabled': tokens.strokeWidthThin,
 
   // Input icon
+  'control/icon/sm': '16px',
+  'control/icon/md': '20px',
+  'control/icon/lg': '20px',
   'foreground/ctrl/icon/onNeutral/rest': tokens.colorNeutralForeground3,
   'foreground/ctrl/icon/onNeutral/hover': tokens.colorNeutralForeground3Hover,
   'foreground/ctrl/icon/onNeutral/pressed': tokens.colorNeutralForeground3Pressed,

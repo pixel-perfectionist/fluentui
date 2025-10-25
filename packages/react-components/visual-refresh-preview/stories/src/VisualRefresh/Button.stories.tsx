@@ -115,7 +115,7 @@ const ButtonStateCell = ({
       };
     }
     const tokens = getVisualRefreshAppearanceStateTokens(appearance ?? 'secondary');
-    const stateKey = componentStateToAppearanceStateKey[state];
+    const stateKey = componentStateToAppearanceStateKey[state] || 'rest';
     const style: React.CSSProperties = {
       color: tokens.foreground[stateKey],
       backgroundColor: tokens.background[stateKey],
