@@ -11,7 +11,7 @@ import {
 } from '../../../../react-button/library/src/components/Button/useButtonStyles.styles';
 import { bundleIcon, ChatEmptyFilled, ChatEmptyRegular } from '@fluentui/react-icons';
 import { VisualRefreshProvider } from '../provider';
-import {ComponentStatesTable, type ComponentState } from '../ComponentStatesTable';
+import { ComponentStatesTable, type ComponentState } from '../ComponentStatesTable';
 
 type AppearanceStateKey = keyof VisualRefreshAppearanceStateTokens['foreground'];
 
@@ -79,7 +79,7 @@ const useStoryStyles = makeStyles({
     alignItems: 'center',
     gap: '34px',
     flexWrap: 'wrap',
-  }
+  },
 });
 
 const useButtonStateStyles = makeStyles({

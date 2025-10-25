@@ -357,65 +357,72 @@ const useVisualRefreshRootStyles = makeStyles({
     color: semanticTokenVar('foreground/ctrl/neutral/secondary/rest'),
     ':hover': {
       backgroundColor: semanticTokenVar('ctrl/input/background/hover'),
-      border: `${semanticTokenVar('ctrl/input/strokeWidth/hover')} solid ${semanticTokenVar('ctrl/input/stroke/hover')}`,
-     // Override filledInteractive hover styles
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/hover')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/hover',
+      )}`,
+      // Override filledInteractive hover styles
       borderLeftColor: semanticTokenVar('ctrl/input/stroke/hover'),
-     borderRightColor: semanticTokenVar('ctrl/input/stroke/hover'),
-     borderTopColor: semanticTokenVar('ctrl/input/stroke/hover'),
-     borderBottomColor: semanticTokenVar('ctrl/input/stroke/hover'),
+      borderRightColor: semanticTokenVar('ctrl/input/stroke/hover'),
+      borderTopColor: semanticTokenVar('ctrl/input/stroke/hover'),
+      borderBottomColor: semanticTokenVar('ctrl/input/stroke/hover'),
       color: semanticTokenVar('foreground/ctrl/neutral/secondary/hover'),
-       '& svg': {
-      color: semanticTokenVar('foreground/ctrl/icon/onNeutral/hover'),
-    },
-     [`& .${iconFilledClassName}`]: {
-        display: 'block',
+      '& svg': {
+        color: semanticTokenVar('foreground/ctrl/icon/onNeutral/hover'),
       },
-      [`& .${iconRegularClassName}`]: {
-        display: 'none',
-      }
-    },
-    ':active,:focus-within': {
-      backgroundColor: semanticTokenVar('ctrl/input/background/pressed'),
-      border: `${semanticTokenVar('ctrl/input/strokeWidth/pressed')} solid ${semanticTokenVar('ctrl/input/stroke/pressed')}`,
-      color: semanticTokenVar('foreground/ctrl/neutral/secondary/pressed'),
-       '& svg': {
-      color: semanticTokenVar('foreground/ctrl/icon/onNeutral/pressed'),
-    },
       [`& .${iconFilledClassName}`]: {
         display: 'block',
       },
       [`& .${iconRegularClassName}`]: {
         display: 'none',
-      }
+      },
+    },
+    ':active,:focus-within': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/pressed'),
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/pressed')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/pressed',
+      )}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/pressed'),
+      '& svg': {
+        color: semanticTokenVar('foreground/ctrl/icon/onNeutral/pressed'),
+      },
+      [`& .${iconFilledClassName}`]: {
+        display: 'block',
+      },
+      [`& .${iconRegularClassName}`]: {
+        display: 'none',
+      },
     },
     // Override the original bottom focus border
     '::after': {
       display: 'none',
-     },
-     // State styles for the Storybook
+    },
+    // State styles for the Storybook
     '&.hover': {
-       backgroundColor: semanticTokenVar('ctrl/input/background/hover'),
-      border: `${semanticTokenVar('ctrl/input/strokeWidth/hover')} solid ${semanticTokenVar('ctrl/input/stroke/hover')}`,
+      backgroundColor: semanticTokenVar('ctrl/input/background/hover'),
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/hover')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/hover',
+      )}`,
       color: semanticTokenVar('foreground/ctrl/neutral/secondary/hover'),
       [`& .${iconFilledClassName}`]: {
         display: 'block',
       },
       [`& .${iconRegularClassName}`]: {
         display: 'none',
-      }
+      },
     },
-     '&.pressed': {
+    '&.pressed': {
       backgroundColor: semanticTokenVar('ctrl/input/background/pressed'),
-      border: `${semanticTokenVar('ctrl/input/strokeWidth/pressed')} solid ${semanticTokenVar('ctrl/input/stroke/pressed')}`,
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/pressed')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/pressed',
+      )}`,
       color: semanticTokenVar('foreground/ctrl/neutral/secondary/pressed'),
       [`& .${iconFilledClassName}`]: {
         display: 'block',
       },
       [`& .${iconRegularClassName}`]: {
         display: 'none',
-      }
+      },
     },
-
   },
   small: {
     minHeight: semanticTokenVar('size/ctrl/sm'),
@@ -427,13 +434,13 @@ const useVisualRefreshRootStyles = makeStyles({
   },
   large: {
     minHeight: semanticTokenVar('size/ctrl/lg'),
-    height: semanticTokenVar('size/ctrl/lg')
+    height: semanticTokenVar('size/ctrl/lg'),
   },
-   invalid: {
+  invalid: {
     ':not(:focus-within),:hover:not(:focus-within)': {
-    backgroundColor: semanticTokenVar('ctrl/input/background/error'),
-    border: `1px solid ${semanticTokenVar('ctrl/input/stroke/error')}`,
-    color: semanticTokenVar('foreground/ctrl/neutral/secondary/error'),
+      backgroundColor: semanticTokenVar('ctrl/input/background/error'),
+      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/error')}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/error'),
     },
   },
   disabled: {
@@ -441,12 +448,12 @@ const useVisualRefreshRootStyles = makeStyles({
     border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`,
     ':hover': {
       backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
-      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`
+      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`,
     },
     ':active,:focus-within': {
       backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
-      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`
-    }
+      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`,
+    },
   },
   smallWithContentBefore: {
     paddingLeft: visualRefreshHorizontalPadding.root.small,
@@ -470,23 +477,23 @@ const useVisualRefreshRootStyles = makeStyles({
 
 const useVisualRefreshInputStyles = makeStyles({
   root: {
-    borderRadius: 'inherit'
+    borderRadius: 'inherit',
   },
   disabled: {
     backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
-    color: semanticTokenVar('foreground/ctrl/neutral/secondary/disabled')
-  }
+    color: semanticTokenVar('foreground/ctrl/neutral/secondary/disabled'),
+  },
 });
 
 const useVisualRefreshContentStyles = makeStyles({
   root: {
-     color: semanticTokenVar('foreground/ctrl/icon/onNeutral/rest'),
+    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/rest'),
   },
- disabled: {
-    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/disabled')
+  disabled: {
+    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/disabled'),
   },
   invalid: {
-    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/error')
+    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/error'),
   },
   small: {
     '> svg': { fontSize: semanticTokenVar('control/icon/sm') },
@@ -521,8 +528,8 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
   const visualRefreshRootStylesRecord = visualRefreshRootStyles as unknown as Record<string, string>;
   const visualRefreshSlots: Array<string | undefined> = ['root', appearance, size];
   const visualRefreshOverrides = isVisualRefreshEnabled
-  ? mergeClasses(...visualRefreshSlots.map(slot => (slot ? visualRefreshRootStylesRecord[slot] : undefined)))
-  : undefined;
+    ? mergeClasses(...visualRefreshSlots.map(slot => (slot ? visualRefreshRootStylesRecord[slot] : undefined)))
+    : undefined;
 
   state.root.className = mergeClasses(
     inputClassNames.root,
@@ -561,11 +568,15 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
     state.input.className,
   );
 
-  const contentClasses = [useContentClassName(), disabled && contentStyles.disabled, contentStyles[size],
-isVisualRefreshEnabled && visualRefreshContentStyles.root,
-  isVisualRefreshEnabled && visualRefreshContentStyles[size],
-isVisualRefreshEnabled && disabled && visualRefreshContentStyles.disabled,
-isVisualRefreshEnabled && invalid && visualRefreshContentStyles.invalid];
+  const contentClasses = [
+    useContentClassName(),
+    disabled && contentStyles.disabled,
+    contentStyles[size],
+    isVisualRefreshEnabled && visualRefreshContentStyles.root,
+    isVisualRefreshEnabled && visualRefreshContentStyles[size],
+    isVisualRefreshEnabled && disabled && visualRefreshContentStyles.disabled,
+    isVisualRefreshEnabled && invalid && visualRefreshContentStyles.invalid,
+  ];
   if (state.contentBefore) {
     state.contentBefore.className = mergeClasses(
       inputClassNames.contentBefore,

@@ -5,9 +5,9 @@ export type ComponentState = 'rest' | 'hover' | 'pressed' | 'error' | 'focus' | 
 
 const useTableStyles = makeStyles({
   previewLabel: {
-      color: tokens.colorNeutralForeground2,
-      fontWeight: tokens.fontWeightSemibold,
-    },
+    color: tokens.colorNeutralForeground2,
+    fontWeight: tokens.fontWeightSemibold,
+  },
   table: {
     borderCollapse: 'collapse',
     minWidth: '720px',
@@ -21,7 +21,7 @@ const useTableStyles = makeStyles({
     padding: '0.75rem',
     textAlign: 'left',
   },
-   variantCell: {
+  variantCell: {
     borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,
     padding: '0.75rem',
     verticalAlign: 'top',
@@ -76,16 +76,16 @@ export const ComponentStatesTable = ({
               <td className={styles.variantCell}>{componentStateLabels[state]}</td>
               {componentVariants.map(variant => (
                 <td key={variant.label} className={styles.stateCell}>
-                <div className={styles.stateContent}>
-                  <StateCell
-                    appearance={variant.appearance}
-                    state={state}
-                    size={controlSize}
-                    isVisualRefreshEnabled={isVisualRefreshEnabled}
-                  >
-                    {state === 'disabled' ? 'Disabled' : variant.content}
-                  </StateCell>
-                </div>
+                  <div className={styles.stateContent}>
+                    <StateCell
+                      appearance={variant.appearance}
+                      state={state}
+                      size={controlSize}
+                      isVisualRefreshEnabled={isVisualRefreshEnabled}
+                    >
+                      {state === 'disabled' ? 'Disabled' : variant.content}
+                    </StateCell>
+                  </div>
                 </td>
               ))}
             </tr>

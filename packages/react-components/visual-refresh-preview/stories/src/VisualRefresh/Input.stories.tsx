@@ -1,9 +1,9 @@
 import * as React from 'react';
 import type { InputProps, JSXElement, SwitchOnChangeData } from '@fluentui/react-components';
 import { makeStyles, useId, Input, Label, Select, Switch, tokens } from '@fluentui/react-components';
-import {bundleIcon, CalendarLtrRegular, CalendarLtrFilled, ChevronDownRegular} from '@fluentui/react-icons';
+import { bundleIcon, CalendarLtrRegular, CalendarLtrFilled, ChevronDownRegular } from '@fluentui/react-icons';
 import { VisualRefreshProvider } from '../provider';
-import {ComponentStatesTable, type ComponentState} from '../ComponentStatesTable';
+import { ComponentStatesTable, type ComponentState } from '../ComponentStatesTable';
 
 const useStoryStyles = makeStyles({
   container: {
@@ -102,24 +102,29 @@ const componentStateLabels: Partial<Record<ComponentState, string>> = {
 
 const CalendarLtr = bundleIcon(CalendarLtrFilled, CalendarLtrRegular);
 
-const InputStateCell = ({ appearance, state, size, isVisualRefreshEnabled }: {
+const InputStateCell = ({
+  appearance,
+  state,
+  size,
+  isVisualRefreshEnabled,
+}: {
   appearance?: InputProps['appearance'];
   state: ComponentState;
   size: InputProps['size'];
   isVisualRefreshEnabled: boolean;
 }) => {
-return (
-  <Input
-   placeholder='Placeholder text'
-   appearance={appearance}
-    disabled={state === 'disabled'}
-    root={{ className: state }}
-    input={{ "aria-invalid": state === 'error' }}
-    size={size}
-    contentBefore={<CalendarLtr/>}
-    contentAfter={<ChevronDownRegular/>}
-  />
-);
+  return (
+    <Input
+      placeholder="Placeholder text"
+      appearance={appearance}
+      disabled={state === 'disabled'}
+      root={{ className: state }}
+      input={{ 'aria-invalid': state === 'error' }}
+      size={size}
+      contentBefore={<CalendarLtr />}
+      contentAfter={<ChevronDownRegular />}
+    />
+  );
 };
 
 export const InputVisualRefresh = (): JSXElement => {
@@ -160,27 +165,24 @@ export const InputVisualRefresh = (): JSXElement => {
       <div className={styles.previewSection}>
         <Label className={styles.previewLabel}>Preview</Label>
         <div className={styles.previewContent}>
-           <Input
-            placeholder='Placeholder text'
-            size={controlSize}
-            aria-invalid={true}
-          />
+          <Input placeholder="Placeholder text" size={controlSize} aria-invalid={true} />
           <Input
-            placeholder='Placeholder text'
+            placeholder="Placeholder text"
             size={controlSize}
-            contentBefore={<CalendarLtr/>}
-            contentAfter={<ChevronDownRegular/>}
+            contentBefore={<CalendarLtr />}
+            contentAfter={<ChevronDownRegular />}
           />
         </div>
       </div>
       {isVisualRefreshEnabled && (
-       <ComponentStatesTable
-       controlSize={controlSize}
-       isVisualRefreshEnabled={isVisualRefreshEnabled}
-       componentStateOrder={componentStateOrder}
-        componentStateLabels={componentStateLabels}
-        componentVariants={inputVariants}
-        StateCell={InputStateCell} />
+        <ComponentStatesTable
+          controlSize={controlSize}
+          isVisualRefreshEnabled={isVisualRefreshEnabled}
+          componentStateOrder={componentStateOrder}
+          componentStateLabels={componentStateLabels}
+          componentVariants={inputVariants}
+          StateCell={InputStateCell}
+        />
       )}
     </div>
   );
