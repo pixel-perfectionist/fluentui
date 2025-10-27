@@ -165,7 +165,7 @@ export const InputVisualRefresh = (): JSXElement => {
       <div className={styles.previewSection}>
         <Label className={styles.previewLabel}>Preview</Label>
         <div className={styles.previewContent}>
-          <Input placeholder="Placeholder text" size={controlSize} aria-invalid={true} />
+          <Input placeholder="Placeholder text" size={controlSize} />
           <Input
             placeholder="Placeholder text"
             size={controlSize}
