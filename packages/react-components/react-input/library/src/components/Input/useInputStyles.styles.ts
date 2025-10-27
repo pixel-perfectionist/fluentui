@@ -4,6 +4,8 @@ import { tokens, typographyStyles } from '@fluentui/react-theme';
 import type { SlotClassNames } from '@fluentui/react-utilities';
 import { makeResetStyles, makeStyles, mergeClasses, shorthands } from '@griffel/react';
 import type { InputSlots, InputState } from './Input.types';
+import { iconFilledClassName, iconRegularClassName } from '@fluentui/react-icons';
+import { semanticTokenVar, useIsVisualRefreshEnabled } from '@fluentui/visual-refresh-preview';
 
 export const inputClassNames: SlotClassNames<InputSlots> = {
   root: 'fui-Input',
@@ -325,11 +327,194 @@ const useContentStyles = makeStyles({
   },
 });
 
+// With no contentBefore or contentAfter, the input slot uses combined padding.
+// If there is contentBefore or contentAfter, then the root and input slots use their individual padding.
+const visualRefreshHorizontalPadding = {
+  root: {
+    small: semanticTokenVar('padding/ctrl/horizontal-default/sm'),
+    medium: semanticTokenVar('padding/ctrl/horizontal-default/md'),
+    large: semanticTokenVar('padding/ctrl/horizontal-default/lg'),
+  },
+
+  // Clarify design specs:
+  // input: {
+  //   small: tokens.spacingHorizontalXXS,
+  //   medium: tokens.spacingHorizontalXXS,
+  //   large: tokens.spacingHorizontalSNudge,
+  // },
+  // combined: {
+  //   small: tokens.spacingHorizontalS, // SNudge + XXS
+  //   medium: tokens.spacingHorizontalM, // MNudge + XXS
+  //   large: `calc(${tokens.spacingHorizontalM} + ${tokens.spacingHorizontalSNudge})`,
+  // },
+};
+
+const useVisualRefreshRootStyles = makeStyles({
+  root: {
+    backgroundColor: semanticTokenVar('ctrl/input/background/rest'),
+    border: `${semanticTokenVar('ctrl/input/strokeWidth/rest')} solid ${semanticTokenVar('ctrl/input/stroke/rest')}`,
+    borderRadius: semanticTokenVar('corner/ctrl/md'),
+    color: semanticTokenVar('foreground/ctrl/neutral/secondary/rest'),
+    ':hover': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/hover'),
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/hover')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/hover',
+      )}`,
+      // Override filledInteractive hover styles
+      borderLeftColor: semanticTokenVar('ctrl/input/stroke/hover'),
+      borderRightColor: semanticTokenVar('ctrl/input/stroke/hover'),
+      borderTopColor: semanticTokenVar('ctrl/input/stroke/hover'),
+      borderBottomColor: semanticTokenVar('ctrl/input/stroke/hover'),
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/hover'),
+      '& svg': {
+        color: semanticTokenVar('foreground/ctrl/icon/onNeutral/hover'),
+      },
+      [`& .${iconFilledClassName}`]: {
+        display: 'block',
+      },
+      [`& .${iconRegularClassName}`]: {
+        display: 'none',
+      },
+    },
+    ':active,:focus-within': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/pressed'),
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/pressed')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/pressed',
+      )}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/pressed'),
+      '& svg': {
+        color: semanticTokenVar('foreground/ctrl/icon/onNeutral/pressed'),
+      },
+      [`& .${iconFilledClassName}`]: {
+        display: 'block',
+      },
+      [`& .${iconRegularClassName}`]: {
+        display: 'none',
+      },
+    },
+    // Override the original bottom focus border
+    '::after': {
+      display: 'none',
+    },
+    // State styles for the Storybook
+    '&.hover': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/hover'),
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/hover')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/hover',
+      )}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/hover'),
+      [`& .${iconFilledClassName}`]: {
+        display: 'block',
+      },
+      [`& .${iconRegularClassName}`]: {
+        display: 'none',
+      },
+    },
+    '&.pressed': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/pressed'),
+      border: `${semanticTokenVar('ctrl/input/strokeWidth/pressed')} solid ${semanticTokenVar(
+        'ctrl/input/stroke/pressed',
+      )}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/pressed'),
+      [`& .${iconFilledClassName}`]: {
+        display: 'block',
+      },
+      [`& .${iconRegularClassName}`]: {
+        display: 'none',
+      },
+    },
+  },
+  small: {
+    minHeight: semanticTokenVar('size/ctrl/sm'),
+    height: semanticTokenVar('size/ctrl/sm'),
+  },
+  medium: {
+    minHeight: semanticTokenVar('size/ctrl/md'),
+    height: semanticTokenVar('size/ctrl/md'),
+  },
+  large: {
+    minHeight: semanticTokenVar('size/ctrl/lg'),
+    height: semanticTokenVar('size/ctrl/lg'),
+  },
+  invalid: {
+    ':not(:focus-within),:hover:not(:focus-within)': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/error'),
+      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/error')}`,
+      color: semanticTokenVar('foreground/ctrl/neutral/secondary/error'),
+    },
+  },
+  disabled: {
+    backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
+    border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`,
+    ':hover': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
+      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`,
+    },
+    ':active,:focus-within': {
+      backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
+      border: `1px solid ${semanticTokenVar('ctrl/input/stroke/disabled')}`,
+    },
+  },
+  smallWithContentBefore: {
+    paddingLeft: visualRefreshHorizontalPadding.root.small,
+  },
+  smallWithContentAfter: {
+    paddingRight: visualRefreshHorizontalPadding.root.small,
+  },
+  mediumWithContentBefore: {
+    paddingLeft: visualRefreshHorizontalPadding.root.medium,
+  },
+  mediumWithContentAfter: {
+    paddingRight: visualRefreshHorizontalPadding.root.medium,
+  },
+  largeWithContentBefore: {
+    paddingLeft: visualRefreshHorizontalPadding.root.large,
+  },
+  largeWithContentAfter: {
+    paddingRight: visualRefreshHorizontalPadding.root.large,
+  },
+});
+
+const useVisualRefreshInputStyles = makeStyles({
+  root: {
+    borderRadius: 'inherit',
+  },
+  disabled: {
+    backgroundColor: semanticTokenVar('ctrl/input/background/disabled'),
+    color: semanticTokenVar('foreground/ctrl/neutral/secondary/disabled'),
+  },
+});
+
+const useVisualRefreshContentStyles = makeStyles({
+  root: {
+    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/rest'),
+  },
+  disabled: {
+    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/disabled'),
+  },
+  invalid: {
+    color: semanticTokenVar('foreground/ctrl/icon/onNeutral/error'),
+  },
+  small: {
+    '> svg': { fontSize: semanticTokenVar('control/icon/sm') },
+  },
+  medium: {
+    '> svg': { fontSize: semanticTokenVar('control/icon/md') },
+  },
+  large: {
+    '> svg': { fontSize: semanticTokenVar('control/icon/lg') },
+  },
+});
+
 /**
  * Apply styling to the Input slots based on the state
  */
 export const useInputStyles_unstable = (state: InputState): InputState => {
   'use no memo';
+  const isVisualRefreshEnabled = useIsVisualRefreshEnabled();
+  const visualRefreshRootStyles = useVisualRefreshRootStyles();
+  const visualRefreshInputStyles = useVisualRefreshInputStyles();
+  const visualRefreshContentStyles = useVisualRefreshContentStyles();
 
   const { size, appearance } = state;
   const disabled = state.input.disabled;
@@ -339,6 +524,12 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
   const rootStyles = useRootStyles();
   const inputStyles = useInputElementStyles();
   const contentStyles = useContentStyles();
+
+  const visualRefreshRootStylesRecord = visualRefreshRootStyles as unknown as Record<string, string>;
+  const visualRefreshSlots: Array<string | undefined> = ['root', appearance, size];
+  const visualRefreshOverrides = isVisualRefreshEnabled
+    ? mergeClasses(...visualRefreshSlots.map(slot => (slot ? visualRefreshRootStylesRecord[slot] : undefined)))
+    : undefined;
 
   state.root.className = mergeClasses(
     inputClassNames.root,
@@ -353,6 +544,13 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
     filled && rootStyles.filled,
     !disabled && invalid && rootStyles.invalid,
     disabled && rootStyles.disabled,
+
+    isVisualRefreshEnabled && visualRefreshOverrides,
+    isVisualRefreshEnabled && state.contentBefore && visualRefreshRootStyles[`${size}WithContentBefore`],
+    isVisualRefreshEnabled && state.contentAfter && visualRefreshRootStyles[`${size}WithContentAfter`],
+    isVisualRefreshEnabled && !disabled && invalid && visualRefreshRootStyles.invalid,
+    isVisualRefreshEnabled && disabled && visualRefreshRootStyles.disabled,
+
     state.root.className,
   );
 
@@ -363,10 +561,22 @@ export const useInputStyles_unstable = (state: InputState): InputState => {
     state.contentBefore && inputStyles[`${size}WithContentBefore`],
     state.contentAfter && inputStyles[`${size}WithContentAfter`],
     disabled && inputStyles.disabled,
+
+    isVisualRefreshEnabled && visualRefreshInputStyles.root,
+    isVisualRefreshEnabled && disabled && visualRefreshInputStyles.disabled,
+
     state.input.className,
   );
 
-  const contentClasses = [useContentClassName(), disabled && contentStyles.disabled, contentStyles[size]];
+  const contentClasses = [
+    useContentClassName(),
+    disabled && contentStyles.disabled,
+    contentStyles[size],
+    isVisualRefreshEnabled && visualRefreshContentStyles.root,
+    isVisualRefreshEnabled && visualRefreshContentStyles[size],
+    isVisualRefreshEnabled && disabled && visualRefreshContentStyles.disabled,
+    isVisualRefreshEnabled && invalid && visualRefreshContentStyles.invalid,
+  ];
   if (state.contentBefore) {
     state.contentBefore.className = mergeClasses(
       inputClassNames.contentBefore,
